@@ -1,0 +1,17 @@
+package com.dreambank.cerdit.card.application.repository;
+
+
+
+
+import com.dreambank.cerdit.card.application.data.CardApplicationData;
+import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
+
+
+@Repository
+public interface CardApplicationRepository extends ReactiveMongoRepository<CardApplicationData,String>  {
+    @Query("firstName=?0 and lastName=?1")
+    Flux<CardApplicationData> findByFisrtNameAndLastName(String fistName, String lastName);
+}

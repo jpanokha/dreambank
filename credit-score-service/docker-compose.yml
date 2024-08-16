@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  transunion-service:
+       image: 'credit-score-service:latest'
+       build:
+          context: .
+          dockerfile: Dockerfile
+       container_name: transunion-service
+       hostname: transunion-service
+       environment:
+         - SPRING_PROFILES_ACTIVE=transunion
+       ports:
+          - "9091:9091"
+       networks:
+          - dreambank-network
+
+  experian-service:
+         image: 'credit-score-service:latest'
+         depends_on:
+           - transunion-service
+         container_name: experian-service
+         hostname: experian-service
+         environment:
+           - SPRING_PROFILES_ACTIVE=experian
+         ports:
+            - "9092:9092"
+         networks:
+           - dreambank-network
+
+  equifax-service:
+    image: 'credit-score-service:latest'
+    depends_on:
+      - transunion-service
+    container_name: equifax-service
+    hostname: equifax-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=equifax
+    ports:
+      - "9093:9093"
+    networks:
+      - dreambank-network
+
+networks:
+  dreambank-network:
+     external: true

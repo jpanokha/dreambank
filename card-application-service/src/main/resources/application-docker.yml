@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: card-application-service
+
+  data:
+    mongodb:
+      host: ${MONGODB_HOST}
+      port: ${MONGODB_PORT}
+      database: db-card-svc-data
+
+
+dbname: db-card-svc-data
+
+
+
