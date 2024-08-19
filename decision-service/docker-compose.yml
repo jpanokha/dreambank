@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+    #service 2: definition of your spring-boot app
+  decision-service:                        #it is just a name, which will be used only in this file.
+    image: decision-service:latest               #name of the image after dockerfile executes
+    container_name: decision-service  #name of the container created from docker image
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+    build:
+      context: .                          #docker file path (. means root directory)
+      dockerfile: Dockerfile              #docker file name
+    ports:
+      - "8087:8087"                       #docker containter port with your os port
+    networks:
+      - dreambank-network
+    restart: always
+
+
+networks:
+  dreambank-network:
+    external: true

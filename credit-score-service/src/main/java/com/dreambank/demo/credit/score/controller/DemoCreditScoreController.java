@@ -33,7 +33,7 @@ public class DemoCreditScoreController {
      */
     @PostMapping("/credit-score")
     public ResponseEntity<Mono<CreditScoreResponse>> creditScore(@RequestBody CreditScoreRequest creditScoreRequest) throws ExecutionException, InterruptedException {
-
+        log.info(creditScoreRequest.getFirstName());
         Integer creditScore = demoCreditScoreService.getCreditScore(creditScoreRequest.getSsn());
         Mono<CreditScoreResponse> creditScoreResponseMono = Mono.just( CreditScoreResponse.builder().firstName(creditScoreRequest.getFirstName())
                 .lastName(creditScoreRequest.getLastName()).ssn(creditScoreRequest.getSsn())

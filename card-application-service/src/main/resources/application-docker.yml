@@ -8,6 +8,10 @@ spring:
       port: ${MONGODB_PORT}
       database: db-card-svc-data
 
+application:
+  decision:
+    service:
+      url: http://decision-service:8087/api/v1/decision
 
 dbname: db-card-svc-data
 

@@ -1,8 +1,8 @@
 package com.dreambank.cerdit.card.application.controller;
 
 
-import com.dreambank.cerdit.card.application.constant.ApplicationStatus;
 import com.dreambank.cerdit.card.application.data.CardApplicationData;
+import com.dreambank.cerdit.card.application.model.DecisionResponse;
 import com.dreambank.cerdit.card.application.service.CardApplicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +35,8 @@ public class CardApplicationController {
     }
 
     @PostMapping("/submit")
-    public ResponseEntity<Mono<ApplicationStatus>> save(@RequestBody CardApplicationData cardApplicationData) throws ExecutionException, InterruptedException {
-        Mono<ApplicationStatus> applicationStatusMono = service.processApplication(cardApplicationData);
-        return new ResponseEntity<Mono<ApplicationStatus>>(applicationStatusMono, HttpStatus.OK);
+    public ResponseEntity<Mono<DecisionResponse>> save(@RequestBody CardApplicationData cardApplicationData) throws ExecutionException, InterruptedException {
+        Mono<DecisionResponse> applicationStatusMono = service.processApplication(cardApplicationData);
+        return new ResponseEntity<Mono<DecisionResponse>>(applicationStatusMono, HttpStatus.OK);
     }
 }

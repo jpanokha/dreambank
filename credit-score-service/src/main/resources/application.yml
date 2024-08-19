@@ -1,0 +1,12 @@
+server :
+  webflux:
+    base-path: equifax
+  port : 9091
+
+
+demo :
+  credit :
+    score :
+      data :
+        345-47-1145 : 566
+        456-23-6780 : 753
