@@ -2,8 +2,14 @@ package com.dreambank.cerdit.card.application.controller;
 
 
 import com.dreambank.cerdit.card.application.data.CardApplicationData;
+import com.dreambank.cerdit.card.application.delegate.CardApplicationDelegate;
+import com.dreambank.cerdit.card.application.model.CardApplicationRequest;
+import com.dreambank.cerdit.card.application.model.CardApplicationResponse;
 import com.dreambank.cerdit.card.application.model.DecisionResponse;
 import com.dreambank.cerdit.card.application.service.CardApplicationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +27,7 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 public class CardApplicationController {
     @Autowired
-    private CardApplicationService service;
+    private CardApplicationDelegate service;
 
     @GetMapping("/")
     public Flux<CardApplicationData> findAll() {
@@ -34,9 +40,15 @@ public class CardApplicationController {
         return service.findCardApplicationByName(firstName,lastName);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "APPROVED / DECLINED /PENDING"),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error"),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable")})
+    @Operation(summary = "Card Application API")
     @PostMapping("/submit")
-    public ResponseEntity<Mono<DecisionResponse>> save(@RequestBody CardApplicationData cardApplicationData) throws ExecutionException, InterruptedException {
-        Mono<DecisionResponse> applicationStatusMono = service.processApplication(cardApplicationData);
-        return new ResponseEntity<Mono<DecisionResponse>>(applicationStatusMono, HttpStatus.OK);
+    public ResponseEntity<Mono<CardApplicationResponse>> save(@RequestBody CardApplicationRequest cardApplicationRequest) throws ExecutionException, InterruptedException {
+        Mono<CardApplicationResponse> applicationStatusMono = service.processApplication(cardApplicationRequest);
+        return new ResponseEntity<Mono<CardApplicationResponse>>(applicationStatusMono, HttpStatus.OK);
     }
 }

@@ -2,7 +2,6 @@ package com.dreambank.card.decision.service.client;
 
 import com.dreambank.card.decision.service.model.CreditScoreRequest;
 import com.dreambank.card.decision.service.model.CreditScoreResponse;
-import com.dreambank.card.decision.service.model.DecisionStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

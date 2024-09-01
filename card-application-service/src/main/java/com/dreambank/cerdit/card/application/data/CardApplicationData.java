@@ -11,13 +11,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Document(collection = "card_application")
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public  @Data class CardApplicationData implements Serializable {
+
+    @Id
+    private String applicationId = UUID.randomUUID().toString();
 
     private String firstName;
     private String lastName;
@@ -28,10 +32,17 @@ public  @Data class CardApplicationData implements Serializable {
 
     @Encrypted
     private String ssn;
+    
+    @Encrypted
+    private LocalDate birthDate;
 
-    private String applicationType;
-    private LocalDate applicationDate;
-    private String applicationStatus;
+    private String status;
+    private Integer equifaxScore;
+    private Integer experianScore;
+    private Integer transunionScore;
+
+    private LocalDate applicationDate = LocalDate.now();
+
 
 
 }

@@ -22,8 +22,7 @@ import java.util.Base64;
 @Slf4j
 public class MongoConfig extends AbstractReactiveMongoConfiguration {
 
-//    @Value("${dbport}")
-//    private String port;
+
     @Value("${spring.data.mongodb.host}")
     private String host;
 

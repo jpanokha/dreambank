@@ -1,25 +1,26 @@
 package com.dreambank.card.decision.service.client;
 
-import com.dreambank.card.decision.service.model.DecisionResponse;
-import com.dreambank.card.decision.service.model.DecisionStatus;
-import com.dreambank.card.decision.service.model.CreditScoreResponse;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 import java.util.Optional;
 
+@RefreshScope
 @Component
 public class CardDecisionHelper {
 
-    public DecisionStatus getDecission(Integer ... creditScores) {
-        Optional<Integer> max = Arrays.stream(creditScores).max(Integer::compare);
+    @Value("${decision.service.credit.score.min-score:500}")
+    private  Integer minCredit;
 
-        if (max.isPresent()) {
-            if (max.get() > 500) return DecisionStatus.APPROVED;
-            else if (max.get() < 500 && max.get()> 0) return DecisionStatus.DECLINED;
+    public String getDecision(Integer ... creditScores) {
+        Optional<Integer> min = Arrays.stream(creditScores).filter(score-> score!=-1).min(Integer::compare);
 
+        if (min.isPresent()) {
+            if (min.get() > minCredit) return "APPROVED";
+            else if (min.get() < minCredit && min.get()> 0) return "DECLINED";
         }
-        return DecisionStatus.PENDING;
+        return "PENDING";
     }
 }

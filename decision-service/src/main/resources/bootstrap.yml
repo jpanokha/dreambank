@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: decision-service
+  cloud:
+    config:
+      uri: http://bank-config-server:7071/dreambank-config
+
+
+
+  jackson:
+    serialization:
+      indent-output: true
+
+management:
+#  server:
+#    port: 8086
+  security:
+    enabled: false
+
+
+  endpoints:
+    web:
+      base-path: /manage
+      exposure:
+        include: '*'
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+

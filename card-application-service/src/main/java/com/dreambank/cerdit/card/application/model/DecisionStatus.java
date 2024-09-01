@@ -11,6 +11,7 @@ public enum DecisionStatus {
 
     private final String code;
 
+
     @JsonValue
     public String getCode(){
         return code;

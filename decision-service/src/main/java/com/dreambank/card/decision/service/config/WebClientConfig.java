@@ -8,13 +8,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
 
-    @Value("${application.decision.service.credit.score.equifax.url}")
+    @Value("${decision.service.credit.score.url.equifax}")
     private String equifaxCreditScoreUrl;
 
-    @Value("${application.decision.service.credit.score.experian.url}")
+    @Value("${decision.service.credit.score.url.experian}")
     private String experianCreditScoreUrl;
 
-    @Value("${application.decision.service.credit.score.transunion.url}")
+    @Value("${decision.service.credit.score.url.transunion}")
     private String transunionCreditScoreUrl;
 
     @Bean("transUnionWebClient")
@@ -31,4 +31,6 @@ public class WebClientConfig {
     public WebClient equifaxWebClient() {
         return WebClient.builder().baseUrl(equifaxCreditScoreUrl).build();
     }
+
+
 }

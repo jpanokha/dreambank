@@ -1,0 +1,33 @@
+version: '3.3'
+
+services:
+  #service 1: definition of mongo database
+  dereambank_db:
+    image: mongo
+    container_name: dereambank_db
+    restart: always
+    ports:
+      - 27018:27017
+    networks:
+      - dreambank-network
+
+
+  #service 2: definition of your spring-boot app
+  bank-config-server:                        #it is just a name, which will be used only in this file.
+    image: bank-config-server:latest               #name of the image after dockerfile executes
+    container_name: bank-config-server  #name of the container created from docker image
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+    build:
+      context: .                          #docker file path (. means root directory)
+      dockerfile: Dockerfile              #docker file name
+    ports:
+      - "7071:7071"                       #docker containter port with your os port
+    networks:
+      - dreambank-network
+    restart: always
+
+networks:
+  dreambank-network:
+    external: true

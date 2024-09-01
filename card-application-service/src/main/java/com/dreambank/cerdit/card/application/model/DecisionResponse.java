@@ -8,8 +8,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class DecisionResponse {
-
-    private DecisionStatus status;
+    private String status;
     private Integer equifaxCreditScore;
     private Integer experianCreditScore;
     private Integer transUnionCreditScore;
