@@ -8,5 +8,5 @@ Step 3 : Cheking if Mongo Service is running and port forwarding working in dock
          docker ps
 
 Communication Diagram
+<img height="1000" src="./img.png" width="1500"/>
 
-         ![img.png](img.png)
