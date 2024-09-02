@@ -18,6 +18,16 @@ services:
       - dreambank-network
     restart: always
 
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - '9090:9090'
+    container_name: prometheus
+    networks:
+      - dreambank-network
+    restart: always
+    volumes:
+      - './prometheus.yml:/etc/prometheus/prometheus.yml'
 
 networks:
   dreambank-network:

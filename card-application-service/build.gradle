@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.2'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id 'jacoco'
 }
 
 group = 'com.dreambank.cerdit.card'
@@ -12,6 +13,7 @@ java {
 		languageVersion = JavaLanguageVersion.of(19)
 	}
 }
+
 
 configurations {
 	compileOnly {
@@ -41,4 +43,22 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+
 }
+
+
+
+tasks.named("jacocoTestCoverageVerification"){
+	violationRules {
+		rule {
+			limit {
+				counter = 'LINE'
+				value = 'COVEREDRATIO'
+				minimum = 0.8
+			}
+		}
+	}
+}
+
+check.dependsOn jacocoTestCoverageVerification

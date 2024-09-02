@@ -2,7 +2,7 @@ package com.dreambank.cerdit.card.application.controller;
 
 
 import com.dreambank.cerdit.card.application.data.CardApplicationData;
-import com.dreambank.cerdit.card.application.delegate.CardApplicationDelegate;
+
 import com.dreambank.cerdit.card.application.model.CardApplicationRequest;
 import com.dreambank.cerdit.card.application.model.CardApplicationResponse;
 import com.dreambank.cerdit.card.application.model.DecisionResponse;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -27,7 +28,7 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 public class CardApplicationController {
     @Autowired
-    private CardApplicationDelegate service;
+    private CardApplicationService service;
 
     @GetMapping("/")
     public Flux<CardApplicationData> findAll() {
@@ -40,6 +41,11 @@ public class CardApplicationController {
         return service.findCardApplicationByName(firstName,lastName);
     }
 
+    @GetMapping("/report/{status}/{applicationDate}")
+    public Flux<CardApplicationData> findbyStatusDate(@PathVariable("status") String status, @PathVariable("applicationDate") LocalDate applicationDate) {
+        return service.findByStatusAndApplicationDate(status,applicationDate);
+    }
+
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "APPROVED / DECLINED /PENDING"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
@@ -48,7 +54,9 @@ public class CardApplicationController {
     @Operation(summary = "Card Application API")
     @PostMapping("/submit")
     public ResponseEntity<Mono<CardApplicationResponse>> save(@RequestBody CardApplicationRequest cardApplicationRequest) throws ExecutionException, InterruptedException {
-        Mono<CardApplicationResponse> applicationStatusMono = service.processApplication(cardApplicationRequest);
-        return new ResponseEntity<Mono<CardApplicationResponse>>(applicationStatusMono, HttpStatus.OK);
+
+            Mono<CardApplicationResponse> applicationStatusMono = service.processApplication(cardApplicationRequest);
+            return new ResponseEntity<Mono<CardApplicationResponse>>(applicationStatusMono, HttpStatus.OK);
+
     }
 }

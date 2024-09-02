@@ -2,8 +2,9 @@ package com.dreambank.card.decision.service.client;
 
 import com.dreambank.card.decision.service.model.CreditScoreRequest;
 import com.dreambank.card.decision.service.model.CreditScoreResponse;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -16,11 +17,13 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class ExperianApiWebClient {
 
-    @Autowired()
-    @Qualifier("experianWebClient")
-    private WebClient experianWebClient;
+    private final WebClient experianWebClient;
 
-    public Mono<Integer> inquireExperianCreditScory(CreditScoreRequest creditScoreRequest){
+    public ExperianApiWebClient( @Qualifier("experianWebClient") WebClient experianWebClient) {
+        this.experianWebClient = experianWebClient;
+    }
+
+    public Mono<Integer> inquireCreditScory(CreditScoreRequest creditScoreRequest){
 
         Mono<Integer> exCreditScoreMono = Mono.empty();
         try{

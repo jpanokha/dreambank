@@ -2,14 +2,13 @@ package com.dreambank.card.decision.service.client;
 
 import com.dreambank.card.decision.service.model.CreditScoreRequest;
 import com.dreambank.card.decision.service.model.CreditScoreResponse;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.ErrorResponseException;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import reactor.core.publisher.Mono;
@@ -17,12 +16,13 @@ import reactor.core.publisher.Mono;
 @Component
 @Slf4j
 public class EquifaxApiWebClient {
+    private final WebClient equifaxWebClient;
 
-    @Autowired()
-    @Qualifier("equifaxWebClient")
-    private WebClient equifaxWebClient;
+    public EquifaxApiWebClient(@Qualifier("equifaxWebClient") WebClient equifaxWebClient) {
+        this.equifaxWebClient = equifaxWebClient;
+    }
 
-    public Mono<Integer> inquireExperianCreditScory(CreditScoreRequest creditScoreRequest){
+    public Mono<Integer> inquireCreditScory(CreditScoreRequest creditScoreRequest){
 
         Mono<Integer> eqCreditScoreMono = Mono.empty();
         try{

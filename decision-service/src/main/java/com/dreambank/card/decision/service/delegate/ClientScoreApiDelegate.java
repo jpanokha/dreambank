@@ -38,9 +38,9 @@ public interface ClientScoreApiDelegate {
          @Override
          public Mono<DecisionResponse> getDecisionResponse(CreditScoreRequest creditScoreRequest) {
              try {
-                 Mono<Integer> experianCreditScore = experianApiWebClient.inquireExperianCreditScory(creditScoreRequest);
-                 Mono<Integer> transunionCreditScore = transunionApiWebClient.inquireExperianCreditScory(creditScoreRequest);
-                 Mono<Integer> equifaxCreditScore = equifaxApiWebClient.inquireExperianCreditScory(creditScoreRequest);
+                 Mono<Integer> experianCreditScore = experianApiWebClient.inquireCreditScory(creditScoreRequest);
+                 Mono<Integer> transunionCreditScore = transunionApiWebClient.inquireCreditScory(creditScoreRequest);
+                 Mono<Integer> equifaxCreditScore = equifaxApiWebClient.inquireCreditScory(creditScoreRequest);
                  return Mono.zip(experianCreditScore,transunionCreditScore, equifaxCreditScore).flatMap(t3->{
                      Integer experianScore = t3.getT1();
                      Integer transunionScore = t3.getT2();

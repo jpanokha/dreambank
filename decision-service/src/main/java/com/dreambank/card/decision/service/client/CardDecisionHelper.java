@@ -18,7 +18,7 @@ public class CardDecisionHelper {
         Optional<Integer> min = Arrays.stream(creditScores).filter(score-> score!=-1).min(Integer::compare);
 
         if (min.isPresent()) {
-            if (min.get() > minCredit) return "APPROVED";
+            if (min.get() > minCredit && !Arrays.asList(creditScores).contains(-1)) return "APPROVED";
             else if (min.get() < minCredit && min.get()> 0) return "DECLINED";
         }
         return "PENDING";
