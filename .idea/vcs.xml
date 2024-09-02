@@ -2,8 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/config-server/dreambank-config" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/config-server/nx-config" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/dreambank-config" vcs="Git" />
   </component>
 </project>
