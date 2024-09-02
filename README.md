@@ -9,4 +9,4 @@ Step 3 : Cheking if Mongo Service is running and port forwarding working in dock
 
 Communication Diagram
 
-         ![](/Users/jpanokha/XData/JP/Programs/Workspace/dreambank-playarea/dreambank/Communication_Diagram.paint)
+         ![img.png](img.png)
