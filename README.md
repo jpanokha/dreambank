@@ -124,12 +124,75 @@ This service is for exposing endpoints for Bank Card Application and Reporting
 __Tech Stack Used : Spring Boot Webflux, docker, gradle, JaCoCo, git, spring cloud config client.__
 
 
+_Command to run this service__
+
+>docker compose -f ./card-application-service/docker-compose.yml up --build -d
+
+![img_4.png](img_4.png)
+
+__Checking Card Application API  Service__
+
+>curl --location 'http://localhost:8080/api/v1/application/submit' \
+--header 'Content-Type: application/json' \
+--data '{"firstName" : "John",
+    "lastName" : "Doe",
+    "address" : {
+        "addressLine1" : "5555 ABC  PKWY",
+        "addressLine2" : "Apt #1788",
+        "city" : "Phoenix",
+        "zip" : "85050"
+    },
+    "phone" : "214-674-8245",
+    "ssn" : "456-23-6784",
+        
+    "birthDate" :"1978-10-10" }'
+
+Response : 
+>{"name":"John Doe","status":"DECLINED","equifaxCreditScore":529,"experianCreditScore":700,"transUnionCreditScore":409}   
+
+This API will call a decision service API to get decision and credit rating from credit score services and stores data in mongodb, and return decision response.
+
+All sensitive data is encrypted before storing to mongodb.
+![img_5.png](img_5.png)
+__Checking Reporting Service APIs__
+
+All Applications
+>curl --location 'http://localhost:8080/api/v1/application/' \
+
+Application Based on Status and Application Date
+>curl --location 'http://localhost:8080/api/v1/application/report/DECLINED/2024-09-03'
+
+__Command to bring down container__
+
+>docker compose -f ./card-application-service/docker-compose.yml down
 
 
+## Code Coverage
 
+JaCoCo Plugin is used for measuring Java Code Coverage and consequently pass the build or fail it
 
+>tasks.named('test') {
+useJUnitPlatform()
+finalizedBy jacocoTestReport
+}
 
+>tasks.named("jacocoTestCoverageVerification"){
+violationRules {
+rule {
+limit {
+counter = 'LINE'
+value = 'COVEREDRATIO'
+minimum = 0.8
+}
+}
+}
+}
 
+>check.dependsOn jacocoTestCoverageVerification
 
+It generates coverage report as follows
+![img_6.png](img_6.png)
 
+![img_7.png](img_7.png)
 
+![img_8.png](img_8.png)
