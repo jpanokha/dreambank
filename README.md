@@ -7,7 +7,8 @@
 4. Equifax Credit Service
 5. Experian Credit Service
 6. Transunion Credit Service
-7. Mongo DB (Card Application Document Store)
+7. Prometheus Service
+8. Mongo DB (Card Application Document Store)
 
 
 ### Communication Diagram
