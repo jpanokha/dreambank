@@ -43,6 +43,7 @@ Cleaning up
 Git clone the repository at some directory and move to the root directory dreambank
 https://github.com/jpanokha/dreambank.git
 
+All Dockerfile are multistage docker, it will use gradle/maven to run build first to create Jar and then creates docker images of the jar.
 
 ### Bank Config Server  & Mongodb
 This is a spring cloud based config server to hold configuration (properties) related to dreambank services.
@@ -165,6 +166,12 @@ __Command to bring down container__
 
 >docker compose -f ./card-application-service/docker-compose.yml down
 
+### Prometheus
+
+Card Application Services metrics can be monitored at
+http://localhost:9090/targets?search=
+
+![img_10.png](img_10.png)
 
 ## Code Coverage
 
