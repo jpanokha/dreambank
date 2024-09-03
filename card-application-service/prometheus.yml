@@ -11,8 +11,33 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ["localhost:9090"]
+
   - job_name: "Card Application Prometheus"
     metrics_path: '/manage/prometheus'
     scrape_interval: 5s
     static_configs:
       - targets: ["card-application-service:8080"]
+
+  - job_name: "Decision Service Prometheus"
+    metrics_path: '/manage/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ "decision-service:8087" ]
+
+  - job_name: "Equifax Service Prometheus"
+    metrics_path: '/manage/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ "equifax-service:9093" ]
+
+  - job_name: "Experian Service Prometheus"
+    metrics_path: '/manage/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ "experian-service:9092" ]
+
+  - job_name: "Transunion Service Prometheus"
+    metrics_path: '/manage/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ "transunion-service:9091" ]

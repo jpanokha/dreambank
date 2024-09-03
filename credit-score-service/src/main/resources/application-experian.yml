@@ -10,3 +10,19 @@ demo :
       data :
         345-47-1145 : 571
         456-23-6780 : 731
+management:
+
+  security:
+    enabled: false
+
+
+  endpoints:
+    web:
+      base-path: /manage
+      exposure:
+        include: '*'
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true

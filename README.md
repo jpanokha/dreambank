@@ -166,12 +166,14 @@ __Command to bring down container__
 
 >docker compose -f ./card-application-service/docker-compose.yml down
 
+
 ### Prometheus
 
-Card Application Services metrics can be monitored at
+Card Application Services metrics/health can be monitored at
 http://localhost:9090/targets?search=
 
-![img_10.png](img_10.png)
+![img_9.png](img_9.png)
+
 
 ## Code Coverage
 
