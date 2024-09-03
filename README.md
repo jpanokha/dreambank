@@ -174,6 +174,11 @@ http://localhost:9090/targets?search=
 
 ![img_9.png](img_9.png)
 
+### Swagger UI
+API Documentation will be available at
+http://localhost:8080/webjars/swagger-ui/index.html
+
+![img_10.png](img_10.png)
 
 ## Code Coverage
 
