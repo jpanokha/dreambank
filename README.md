@@ -144,7 +144,6 @@ __Checking Card Application API  Service__
     },
     "phone" : "214-674-8245",
     "ssn" : "456-23-6784",
-        
     "birthDate" :"1978-10-10" }'
 
 Response : 
